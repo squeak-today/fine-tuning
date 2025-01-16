@@ -1,0 +1,37 @@
+name: Cohere Dataset Upload
+
+on:
+  push:
+    paths:
+      - 'data/**/*.jsonl'
+  workflow_dispatch:
+
+jobs:
+  upload-datasets:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install cohere python-dotenv
+          
+      - name: Upload datasets
+        env:
+          COHERE_API_KEY: ${{ secrets.COHERE_API_KEY }}
+        run: python src/data/dataset.py
+        
+      - name: Commit and push Dataset_History.json
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add Dataset_History.json
+          git commit -m "Update Dataset_History.json [skip ci]" || exit 0
+          git push 

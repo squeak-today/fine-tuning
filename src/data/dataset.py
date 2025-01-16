@@ -37,6 +37,8 @@ def upload_dataset(filepath, co_client, version=None):
         data=open(filepath, "rb"),
         type="chat-finetune-input",
     )
+    ds = co_client.wait(chat_dataset)
+    print(f"Dataset {ds.dataset.id} status => {ds.dataset.validation_status}")
     return chat_dataset.id
 
 def get_next_version(history, filepath):
@@ -45,13 +47,12 @@ def get_next_version(history, filepath):
         return 1
     return history[filepath][-1]['version'] + 1
 
-def main():
-    load_dotenv()
-
-    co = cohere.ClientV2(os.getenv("COHERE_API_KEY"))
+def upload_datasets(co):
     history = load_upload_history()
     jsonl_files = glob.glob("data/**/*.jsonl", recursive=True)
     new_uploads = False
+
+    new_datasets = []
 
     for filepath in jsonl_files:
         current_hash = get_file_hash(filepath)
@@ -67,6 +68,7 @@ def main():
                 }]
                 new_uploads = True
                 print(f"Successfully uploaded new file {filepath} as dataset {dataset_id} (v1)")
+                new_datasets.append(dataset_id)
             except Exception as e:
                 print(f"Error uploading {filepath}: {str(e)}")
         
@@ -83,6 +85,7 @@ def main():
                 })
                 new_uploads = True
                 print(f"Successfully uploaded modified {filepath} as dataset {dataset_id} (v{next_version})")
+                new_datasets.append(dataset_id)
             except Exception as e:
                 print(f"Error uploading {filepath}: {str(e)}")
     
@@ -91,6 +94,5 @@ def main():
         print("Upload history updated.")
     else:
         print("No new uploads found.")
-
-if __name__ == "__main__":
-    main()
+    
+    return new_datasets

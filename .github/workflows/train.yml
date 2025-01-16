@@ -26,7 +26,7 @@ jobs:
       - name: Upload datasets
         env:
           COHERE_API_KEY: ${{ secrets.COHERE_API_KEY }}
-        run: python src/data/dataset.py
+        run: python src/pipeline.py
         
       - name: Commit and push Dataset_History.json
         run: |
@@ -34,4 +34,4 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git add Dataset_History.json
           git commit -m "Update Dataset_History.json [skip ci]" || exit 0
-          git push 
+          git push

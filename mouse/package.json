@@ -32,6 +32,8 @@
     ]
   },
   "devDependencies": {
-    "eslint-config-react-app": "^7.0.1"
+    "eslint-config-react-app": "^7.0.1",
+    "nth-check": "^2.0.1",
+    "postcss": "^8.4.31"
   }
 }

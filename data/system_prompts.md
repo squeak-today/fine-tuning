@@ -15,13 +15,13 @@ Story prompts
 - `An unlikely friendship`.
 - `A world-changing secret.`.
 - `A misunderstood villain`.
-- `A curse that turns out to be a blessing`.
+- `A curse that turns out to be a blessing`
 - `A race against time`.
 - `A butterfly effect`.
 - `Two enemies team up`.
-- `A world with an unconventional currency`.
+- `A world with an unconventional currency.`
 - `Chosen One rejects their destiny`.
-- `A love story between two people in enemy factions`.
+- `A love story between two people in enemy factions`
 - `A riveting mystery.`
 - `A cliffhanger ending.`
 - `A twist hero. A twist villain.`

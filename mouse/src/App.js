@@ -7,6 +7,7 @@ function App() {
   const [modelContent, setModelContent] = useState('');
   const [entries, setEntries] = useState([]);
   const [showRawFormat, setShowRawFormat] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const handleAddEntry = () => {
     const data = {
@@ -62,6 +63,44 @@ function App() {
     }
   };
 
+  const handleGenerate = async () => {
+    if (!userContent || !systemContent) {
+      alert('Please provide both system and user content');
+      return;
+    }
+
+    setIsGenerating(true);
+    try {
+      const response = await fetch('https://api.cohere.com/v1/chat', {
+        method: 'POST',
+        headers: {
+          'accept': 'application/json',
+          'Authorization': `Bearer ${process.env.REACT_APP_COHERE_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: userContent,
+          chat_history: [],
+          preamble: systemContent,
+          temperature: 1.0
+        }),
+      });
+
+      const data = await response.json();
+      
+      if (data.text) {
+        setModelContent(data.text);
+      } else {
+        throw new Error(data.message || 'No response from API');
+      }
+    } catch (error) {
+      console.error('Error generating response:', error);
+      alert('Error generating response: ' + error.message);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
   return (
     <div className="App">
       <div className="app-header">
@@ -86,6 +125,13 @@ function App() {
             onChange={(e) => setUserContent(e.target.value)}
             rows="4"
           />
+          <button 
+            onClick={handleGenerate}
+            disabled={isGenerating}
+            className="generate-button"
+          >
+            {isGenerating ? 'Generating...' : 'Generate'}
+          </button>
         </div>
 
         <div className="input-group">

@@ -3,7 +3,7 @@ name: Cohere Dataset Upload
 on:
   push:
     paths:
-      - 'data/**/*.jsonl'
+      - 'data/datasets/**/*.jsonl'
   workflow_dispatch:
 
 jobs:

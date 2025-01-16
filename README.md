@@ -6,15 +6,20 @@ fine-tuning/
 │   └── workflows/
 │       └── train.yml              # CI for training pipeline
 ├── data/
-│   ├── french/                    # Original data files
-│   ├── spanish/                   # Cleaned and formatted data
-│   └── validation/                # Test sets for model evaluation
+│   ├── tavily/                    # Tavily Response Data
+│   │   ├── basketball/
+│   │   ├── politics/
+│   │   └── ...
+│   └── datasets/
+│       ├── french/                # Original data files
+│       ├── spanish/               # Cleaned and formatted data
+│       └── ...
 ├── src/
 │   ├── data/
 │   │   └── dataset.py             # Data validation
-│   └── training/
-│       ├── train.py               # Training script
-│       └── evaluate.py            # Evaluation metrics
+│   ├── training/
+│   │   └── train.py               # Training script
+│   └── pipeline.py                    # Upload datasets and train models
 ├── mouse/
 │   └── ...                        # Local web app for fine-tuning.
 └── README.md

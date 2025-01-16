@@ -20,7 +20,6 @@ function App() {
     setEntries([...entries, data]);
     
     // Clear the form
-    setSystemContent('');
     setUserContent('');
     setModelContent('');
   };

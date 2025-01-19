@@ -82,7 +82,8 @@ function App() {
           message: userContent,
           chat_history: [],
           preamble: systemContent,
-          temperature: 1.0
+          temperature: 1.0,
+		  model: 'command-r'
         }),
       });
 

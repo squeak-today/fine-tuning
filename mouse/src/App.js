@@ -8,6 +8,8 @@ function App() {
   const [entries, setEntries] = useState([]);
   const [showRawFormat, setShowRawFormat] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [selectedModel, setSelectedModel] = useState('command-r');
+  const [customModel, setCustomModel] = useState('');
 
   const handleAddEntry = () => {
     const data = {
@@ -82,7 +84,8 @@ function App() {
           message: userContent,
           chat_history: [],
           preamble: systemContent,
-          temperature: 1.0
+          temperature: 1.0,
+          model: selectedModel === 'custom' ? customModel : selectedModel,
         }),
       });
 
@@ -107,6 +110,32 @@ function App() {
         <h1>Mouse 🐁</h1>
       </div>
       <div className="input-container">
+        <div className="input-group">
+          <label htmlFor="model-select">MODEL</label>
+          <div className="model-select-container">
+            <select
+              id="model-select"
+              value={selectedModel}
+              onChange={(e) => setSelectedModel(e.target.value)}
+            >
+              <option value="command-r">command-r</option>
+              <option value="command-r7b-12-2024">command-r7b-12-2024</option>
+              <option value="command-r-plus-08-2024">command-r-plus-08-2024</option>
+              <option value="c4ai-aya-expanse-32b">c4ai-aya-expanse-32b</option>
+              <option value="custom">custom</option>
+            </select>
+            {selectedModel === 'custom' && (
+              <input
+                type="text"
+                value={customModel}
+                onChange={(e) => setCustomModel(e.target.value)}
+                placeholder="Enter custom model name"
+                className="custom-model-input"
+              />
+            )}
+          </div>
+        </div>
+
         <div className="input-group">
           <label htmlFor="system">SYSTEM</label>
           <textarea

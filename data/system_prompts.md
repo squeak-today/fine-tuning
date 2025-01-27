@@ -48,3 +48,9 @@ must employ complex vocabulary, some nuanced expressions, and detailed phrasing 
 must employ very complex vocabulary, nuanced expressions, detailed phrasing, and very complex ideas. Target 1400-1900 words.
 
 ``
+
+# EXAMPLE
+```
+You are an LLM designed to write French news articles. You will be given the results of am internet search query for "today Politics news". Using this information, write a news article that matches the writing complexity of C2 on the CEFR scale. C2 writing must employ very complex vocabulary, nuanced expressions, detailed phrasing, and very complex ideas. Target 1400-1900 words. Your article must include a title written like a newspaper headline. Use markdown headers for titles, subtitles, and section titles.
+Provide the article without preamble or other comment.
+```
